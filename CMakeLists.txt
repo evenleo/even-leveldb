@@ -2,6 +2,52 @@ cmake_minimum_required(VERSION 3.9)
 # Keep the version below in sync with the one in db.h
 project(leveldb VERSION 1.22.0 LANGUAGES C CXX)
 
+# C++ standard can be overridden when this is used as a sub-project.
+if(NOT CMAKE_CXX_STANDARD)
+  # This project requires C++11.
+  set(CMAKE_CXX_STANDARD 11)
+  set(CMAKE_CXX_STANDARD_REQUIRED ON)
+  set(CMAKE_CXX_EXTENSIONS OFF)
+endif(NOT CMAKE_CXX_STANDARD)
+
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+if (WIN32)
+  set(LEVELDB_PLATFORM_NAME LEVELDB_PLATFORM_WINDOWS)
+  # TODO(cmumford): Make UNICODE configurable for Windows.
+  add_definitions(-D_UNICODE -DUNICODE)
+else (WIN32)
+  set(LEVELDB_PLATFORM_NAME LEVELDB_PLATFORM_POSIX)
+endif (WIN32)
+
+include(TestBigEndian)
+test_big_endian(LEVELDB_IS_BIG_ENDIAN)
+
+include(CheckIncludeFile)
+check_include_file("unistd.h" HAVE_UNISTD_H)
+
+include(CheckLibraryExists)
+check_library_exists(crc32c crc32c_value "" HAVE_CRC32C)
+check_library_exists(snappy snappy_compress "" HAVE_SNAPPY)
+check_library_exists(tcmalloc malloc "" HAVE_TCMALLOC)
+
+include(CheckCXXSymbolExists)
+# Using check_cxx_symbol_exists() instead of check_c_symbol_exists() because
+# we're including the header from C++, and feature detection should use the same
+# compiler language that the project will use later. Principles aside, some
+# versions of do not expose fdatasync() in <unistd.h> in standard C mode
+# (-std=c11), but do expose the function in standard C++ mode (-std=c++11).
+check_cxx_symbol_exists(fdatasync "unistd.h" HAVE_FDATASYNC)
+check_cxx_symbol_exists(F_FULLFSYNC "fcntl.h" HAVE_FULLFSYNC)
+check_cxx_symbol_exists(O_CLOEXEC "fcntl.h" HAVE_O_CLOEXEC)
+
+set(LEVELDB_PORT_CONFIG_DIR "include/port")
+
+configure_file(
+  "port/port_config.h.in"
+  "${PROJECT_BINARY_DIR}/${LEVELDB_PORT_CONFIG_DIR}/port_config.h"
+)
+
 include_directories(
   "${PROJECT_BINARY_DIR}/include"
   "."
@@ -9,3 +55,4 @@ include_directories(
 
 add_executable(arena_test test/arena_test.cc util/arena.cc)
 # target_link_libraries(arena_test )
+

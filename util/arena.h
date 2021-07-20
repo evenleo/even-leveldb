@@ -46,6 +46,6 @@ inline char* Arena::Allocate(size_t bytes) {
     return AllocateAligned(bytes);
 }
 
-}
+}  // namespace leveldb
 
-#endif
+#endif  // LEVELDB_UTIL_ARENA_H_
