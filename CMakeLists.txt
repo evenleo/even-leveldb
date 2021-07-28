@@ -53,6 +53,9 @@ include_directories(
   "."
 )
 
+include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
+
 add_executable(arena_test test/arena_test.cc util/arena.cc)
+add_executable(posix_logger_test test/posix_logger_test.cc util/arena.cc util/env.cc util/status.cc)
 # target_link_libraries(arena_test )
 
