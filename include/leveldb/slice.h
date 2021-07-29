@@ -48,7 +48,7 @@ public:
 
     int compare(const Slice& b) const;
 
-    bool start_with(const Slice& x) const {
+    bool starts_with(const Slice& x) const {
         return ((size_ >= x.size_) && (memcmp(data_, x.data_, x.size_) == 0));
     }
 

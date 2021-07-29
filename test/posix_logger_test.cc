@@ -29,35 +29,12 @@
 
 using namespace leveldb;
 
-#if defined(HAVE_O_CLOEXEC)
-constexpr const int kOpenBaseFlags = O_CLOEXEC;
-#else
-constexpr const int kOpenBaseFlags = 0;
-#endif  // defined(HAVE_O_CLOEXEC)
-
-Status NewLogger(const std::string& filename, Logger** result) {
-    int fd = ::open(filename.c_str(),
-                    O_APPEND | O_WRONLY | O_CREAT | kOpenBaseFlags, 0644);
-    if (fd < 0) {
-        *result = nullptr;
-        // return PosixError(filename, errno);
-        return Status::OK();
-    }
-
-    std::FILE* fp = ::fdopen(fd, "w");
-    if (fp == nullptr) {
-        ::close(fd);
-        *result = nullptr;
-        // return PosixError(filename, errno);
-        return Status::OK();
-    } else {
-        *result = new PosixLogger(fp);
-        return Status::OK();
-    }
-}
-
 int main() {
-    
+    Env* env_ = Env::Default();
+    Logger* logger = nullptr;
+    env_->NewLogger("./test.log", &logger);
+    int n = 100;
+    Log(logger, "even test [%d]", n);
     
     return 0;
 }

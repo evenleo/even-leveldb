@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/posix_logger_test.dir/test/posix_logger_test.cc.o CMakeFiles/posix_logger_test.dir/util/arena.cc.o CMakeFiles/posix_logger_test.dir/util/env.cc.o CMakeFiles/posix_logger_test.dir/util/status.cc.o  -o posix_logger_test 

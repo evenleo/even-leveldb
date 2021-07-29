@@ -75,11 +75,11 @@ Status ReadFileToString(Env* env, const std::string& fname, std::string* data) {
         Slice fragment;
         s = file->Read(kBufferSize, &fragment, space);
         if (!s.ok()) {
-        break;
+            break;
         }
         data->append(fragment.data(), fragment.size());
-        if (fragment.empty()) {
-        break;
+            if (fragment.empty()) {
+            break;
         }
     }
     delete[] space;

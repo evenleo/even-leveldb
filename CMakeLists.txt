@@ -12,13 +12,7 @@ endif(NOT CMAKE_CXX_STANDARD)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
-if (WIN32)
-  set(LEVELDB_PLATFORM_NAME LEVELDB_PLATFORM_WINDOWS)
-  # TODO(cmumford): Make UNICODE configurable for Windows.
-  add_definitions(-D_UNICODE -DUNICODE)
-else (WIN32)
-  set(LEVELDB_PLATFORM_NAME LEVELDB_PLATFORM_POSIX)
-endif (WIN32)
+add_definitions(-DLEVELDB_PLATFORM_POSIX=1)
 
 include(TestBigEndian)
 test_big_endian(LEVELDB_IS_BIG_ENDIAN)
@@ -53,9 +47,14 @@ include_directories(
   "."
 )
 
-include_directories(${CMAKE_CURRENT_LIST_DIR}/include)
+include_directories(
+  ${CMAKE_CURRENT_LIST_DIR}/include
+  .
+)
+
 
 add_executable(arena_test test/arena_test.cc util/arena.cc)
-add_executable(posix_logger_test test/posix_logger_test.cc util/arena.cc util/env.cc util/status.cc)
-# target_link_libraries(arena_test )
+target_link_libraries(arena_test )
 
+add_executable(posix_logger_test test/posix_logger_test.cc util/arena.cc util/env.cc util/status.cc util/env_posix.cc)
+target_link_libraries(posix_logger_test -lpthread )

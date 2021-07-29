@@ -1,1 +1,0 @@
-/usr/bin/c++     CMakeFiles/arena_test.dir/test/arena_test.cc.o CMakeFiles/arena_test.dir/util/arena.cc.o  -o arena_test 

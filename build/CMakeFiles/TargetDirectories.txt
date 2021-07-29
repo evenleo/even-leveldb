@@ -1,4 +1,0 @@
-/home/even/workspace/even-leveldb/build/CMakeFiles/rebuild_cache.dir
-/home/even/workspace/even-leveldb/build/CMakeFiles/edit_cache.dir
-/home/even/workspace/even-leveldb/build/CMakeFiles/arena_test.dir
-/home/even/workspace/even-leveldb/build/CMakeFiles/posix_logger_test.dir

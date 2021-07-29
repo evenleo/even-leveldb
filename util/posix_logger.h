@@ -90,9 +90,9 @@ public:
                     continue;
                 }
 
-                // The dynamically-allocated buffer was incorrectly sized. This should
-                // not happen, assuming a correct implementation of (v)snprintf. Fail
-                // in tests, recover by truncating the log message in production.
+                // 动态分配的缓冲区大小不正确。这应该
+                // 假设（v）snprintf实现正确，则不会发生。失败
+                // 在测试中，通过截断生产中的日志消息进行恢复。
                 assert(false);
                 buffer_offset = buffer_size - 1;
             }
