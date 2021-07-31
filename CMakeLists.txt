@@ -56,5 +56,16 @@ include_directories(
 add_executable(arena_test test/arena_test.cc util/arena.cc)
 target_link_libraries(arena_test )
 
-add_executable(posix_logger_test test/posix_logger_test.cc util/arena.cc util/env.cc util/status.cc util/env_posix.cc)
-target_link_libraries(posix_logger_test -lpthread )
+add_executable(posix_logger_test 
+               test/posix_logger_test.cc 
+               util/arena.cc 
+               util/env.cc 
+               util/status.cc 
+               util/env_posix.cc
+               )
+target_link_libraries(posix_logger_test -lpthread)
+
+add_executable(coding_test 
+               test/coding_test.cc
+               util/coding.cc
+               )
