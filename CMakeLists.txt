@@ -52,20 +52,24 @@ include_directories(
   .
 )
 
+add_library(leveldb "")
+target_sources(leveldb
+  PRIVATE
+    "${PROJECT_BINARY_DIR}/${LEVELDB_PORT_CONFIG_DIR}/port_config.h"
+    "util/arena.cc"
+    "util/coding.cc"
+    "util/env.cc"
+    "util/env_posix.cc"
+    "util/status.cc"
+    "util/hash.cc"
 
-add_executable(arena_test test/arena_test.cc util/arena.cc)
-target_link_libraries(arena_test )
+)
 
-add_executable(posix_logger_test 
-               test/posix_logger_test.cc 
-               util/arena.cc 
-               util/env.cc 
-               util/status.cc 
-               util/env_posix.cc
-               )
-target_link_libraries(posix_logger_test -lpthread)
+add_executable(arena_test test/arena_test.cc)
+target_link_libraries(arena_test leveldb)
 
-add_executable(coding_test 
-               test/coding_test.cc
-               util/coding.cc
-               )
+add_executable(posix_logger_test test/posix_logger_test.cc)
+target_link_libraries(posix_logger_test leveldb -lpthread)
+
+add_executable(coding_test test/coding_test.cc)
+target_link_libraries(coding_test leveldb)
