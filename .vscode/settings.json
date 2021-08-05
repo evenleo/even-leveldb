@@ -17,6 +17,10 @@
         "editor.defaultFormatter": "ms-vscode.cpptools"
     },
     "C_Cpp.formatting": "Default",
+    "files.associations": {
+        "random": "cpp",
+        "type_traits": "cpp"
+    },
     // "C_Cpp.vcFormat.indent.accessSpecifiers": true,
     // "clang-format.fallbackStyle": "Google",
 }

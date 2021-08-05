@@ -62,7 +62,7 @@ target_sources(leveldb
     "util/env_posix.cc"
     "util/status.cc"
     "util/hash.cc"
-
+    "util/logging.cc"
 )
 
 add_executable(arena_test test/arena_test.cc)
@@ -73,3 +73,5 @@ target_link_libraries(posix_logger_test leveldb -lpthread)
 
 add_executable(coding_test test/coding_test.cc)
 target_link_libraries(coding_test leveldb)
+
+add_executable(no_destructor_test test/no_destructor_test.cc)
