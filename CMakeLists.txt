@@ -63,6 +63,7 @@ target_sources(leveldb
     "util/status.cc"
     "util/hash.cc"
     "util/logging.cc"
+    "util/comparator.cc"
 )
 
 add_executable(arena_test test/arena_test.cc)
@@ -75,3 +76,6 @@ add_executable(coding_test test/coding_test.cc)
 target_link_libraries(coding_test leveldb)
 
 add_executable(no_destructor_test test/no_destructor_test.cc)
+
+add_executable(skiplist_test test/skiplist_test.cc)
+target_link_libraries(skiplist_test leveldb)

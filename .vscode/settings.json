@@ -19,7 +19,8 @@
     "C_Cpp.formatting": "Default",
     "files.associations": {
         "random": "cpp",
-        "type_traits": "cpp"
+        "type_traits": "cpp",
+        "iostream": "cpp"
     },
     // "C_Cpp.vcFormat.indent.accessSpecifiers": true,
     // "clang-format.fallbackStyle": "Google",

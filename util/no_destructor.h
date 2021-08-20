@@ -11,10 +11,11 @@
 
 namespace leveldb {
 
-// Wraps an instance whose destructor is never called.
+// Wraps an instance whose destructor is never called.  
 //
-// This is intended for use with function-level static variables.
-// std::aligned_storage 提供了标准化的高级实用程序来管理对齐的存储
+// This is intended for use with function-level static variables.  
+// 包装从未调用析构函数的实例
+// 这是为了与函数级静态变量一起使用
 template <typename InstanceType> class NoDestructor {
 public:
   template <typename... ConstructorArgTypes>
@@ -38,8 +39,9 @@ public:
   }
 
 private:
+  // std::aligned_storage 提供了标准化的高级实用程序来管理对齐的存储
   typename std::aligned_storage<sizeof(InstanceType),
-                                alignof(InstanceType)>::type instance_storage_;
+                                alignof(InstanceType)>::type instance_storage_; 
 };
 
 } // namespace leveldb
